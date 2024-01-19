@@ -1,0 +1,26 @@
+class Solution 
+{
+    public:
+    bool isKnow(int a , int b, vector<vector<int> >& M){
+        return M[a][b];
+    }
+    //Function to find if there is a celebrity in the party or not.
+    int celebrity(vector<vector<int> >& M, int n) 
+    {
+        
+        //use two pointers - one from start and one from end
+        //A and B - if A knows B , then A is not celebrity , if B knows A then B is not celebrity
+        int i=0, j=n-1; 
+        while(i<j){
+            if(isKnow(i,j,M)) i++;
+            else j--;
+        }
+        //making sure that 'i' is a celebrity
+        for(int j=0;j<n;j++)
+        {
+            if(i!=j && (M[i][j]!=0 || M[j][i]!=1)) return -1;
+        }
+        
+        return i;
+    }
+};
