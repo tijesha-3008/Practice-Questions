@@ -1,0 +1,49 @@
+#include <iostream>
+using namespace std;
+#include <bits/stdc++.h>
+
+bool isValid(string s)
+{
+    stack<char>st;
+    int len=s.length();
+    for(int i=0;i<len;i++){
+        if(s[i]=='(' || s[i]=='*')
+        st.push(s[i]);
+        else if(!st.empty() && s[i]==')')
+        st.pop();
+    }
+    
+    if(st.empty()) return true;
+    string str="";
+    while(!st.empty()){
+        char ch=st.top();
+        cout<<ch<<" ";
+        str+=ch;
+        st.pop();
+    }
+    cout<<endl;
+    for(int i=0;i<str.length();i++){
+        if(str[i]=='*' && str[i+1]=='('){
+            str.erase(i,2);
+        }
+    }
+    for(int i=0;i<str.length();i++)
+    {
+        if(str[i]!='*') return false;
+    }
+    cout<<str<<endl;
+    return true;
+}
+int main() {
+    // given a string that comprised “(“, “)” and “*”. Now the “*” can 
+    //represent – “(“, “)” or ” ” (a blank space).
+    //A string is given , return if it had valid parenthesis or not.
+    //Input:-  "*(())(*"
+    //Output:- true
+
+    string st;
+    cin>>st;
+	if(isValid(st)) cout<<"TRUE"<<endl;
+	else cout<<"FALSE"<<endl;
+	return 0;
+}
